@@ -86,4 +86,4 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.carrier=unknown \
     ro.config.notification_sound=OnTheHunt.ogg \
-    ro.config.alarm_alert=Alarm_Classic.ogg
+    ro.cNEZUKOrm_alert=Alarm_Classic.ogg
