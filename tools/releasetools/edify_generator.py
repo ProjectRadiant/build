@@ -269,10 +269,10 @@ class EdifyGenerator(object):
     self.Print("----------------------------------------------")
     if is_plus:
       self.Print("                   NezukoOS")
-      self.Print("               by Team NezukoOS")
+      self.Print("               by @Maitreya29")
     else:
       self.Print("                   NezukoOS")
-      self.Print("               by Team NezukoOS")
+      self.Print("               by @Maitreya29")
     self.Print("----------------------------------------------")
     self.Print(" Android version: %s"%(android_version))
     self.Print(" Build id: %s"%(build_id))
