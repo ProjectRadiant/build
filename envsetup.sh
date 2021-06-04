@@ -145,7 +145,7 @@ function check_product()
         return
     fi
     if (echo -n $1 | grep -q -e "^nezuko_") ; then
-        NEZUKO_BUILD=$(echo -n $1 | sed -e 's/^palladium_//g')
+        NEZUKO_BUILD=$(echo -n $1 | sed -e 's/^nezuko_//g')
     else
         NEZUKO_BUILD=
     fi
@@ -662,6 +662,20 @@ function lunch()
     fi
 
     check_product $product
+    if [ $? -ne 0 ]
+    then
+        # if we can't find a product, try to grab it off of GitHub
+        T=$(gettop)
+        cd $T > /dev/null
+        vendor/nezuko/build/tools/roomservice.py $product
+        cd - > /dev/null
+        check_product $product
+    else
+        T=$(gettop)
+        cd $T > /dev/null
+        vendor/nezuko/build/tools/roomservice.py $product true
+        cd - > /dev/null
+    fi
 
     TARGET_PRODUCT=$product \
     TARGET_BUILD_VARIANT=$variant \
@@ -669,6 +683,15 @@ function lunch()
     build_build_var_cache
     if [ $? -ne 0 ]
     then
+        echo
+        echo "** Don't have a product spec for: '$product'"
+        echo "** Do you have the right repo manifest?"
+        product=
+    fi
+
+    if [ -z "$product" -o -z "$variant" ]
+    then
+        echo
         return 1
     fi
 
